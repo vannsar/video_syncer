@@ -4,4 +4,4 @@
 
 * use ```npm install``` to download modules.
 * use ```npm run build```
-* open index.html
+* open index.html in /server/
