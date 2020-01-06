@@ -1,0 +1,25 @@
+{
+  "name": "vidsyncer_skeleton",
+  "version": "0.0.1",
+  "description": "A video syncing tool to play videos at specified times",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server",
+    "build": "webpack --mode=production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vannarith Sar",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "npm-run-all": "4.1.5",
+    "@babel/core": "7.4.4",
+    "@babel/plugin-transform-react-jsx": "7.3.0",
+    "babel-eslint": "10.0.1",
+    "babel-loader": "8.0.6",
+    "webpack": "4.31.0",
+    "webpack-cli": "3.3.2",
+    "webpack-dev-server": "3.3.1"
+  }
+}
