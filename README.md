@@ -2,6 +2,6 @@
 
 ### How to install.
 
-* use ```npm install``` to download modules.
-* use ```npm run build```
-* open index.html in /server/
+* Use ```npm install``` to download modules.
+* Use ```npm run build``` to build from webpack
+* Open index.html in /server/
