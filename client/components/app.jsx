@@ -1,8 +1,17 @@
 import React from 'react';
+import Youtube from 'react-youtube';
 
 export default class App extends React.Component{
     constructor(props){
         super(props);
+        const opts = {
+            height: '315',
+            width: '560',
+            playerVars: { // https://developers.google.com/youtube/player_parameters
+              autoplay: 1
+            }
+          };
+       
         this.state = {
         }
     }
@@ -22,7 +31,7 @@ class VideoSync extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+            url: "2g811Eo7K8U",
             newUrl: "",
             currentTime: "11:00:00 AM EST",
             targetTime: "12:00:00 AM EST"
@@ -32,17 +41,17 @@ class VideoSync extends React.Component{
     }
 
     handleSubmit(){
+        const url = document.getElementById('urlInput').value;
+        let video_id = url.split('v=')[1];
+        let ampPos = video_id.indexOf('&');
+        if(ampPos != -1) {
+            video_id = video_id.substring(0, ampPos);
+          }
         this.setState({
-            url: document.getElementById('urlInput').value
+            url: video_id
         });
     }
 
-    // handleChange(url){
-    //     console.log(document.getElementById('userInput').value);
-    //     this.setState({
-    //         newUrl: url
-    //     })
-    // }
 
     render(){
         return (
@@ -64,12 +73,15 @@ class VideoSync extends React.Component{
             </div>
 
             <div className="urlContainer">
-                <input id="urlInput" type="text" onChange={this.handleChange} placeholder={this.state.url}></input>
+                <input id="urlInput" type="text" onChange={this.handleChange} placeholder="Enter url here"></input>
                 <input type="submit" value="Submit" onClick={this.handleSubmit}></input>
             </div>
             
             <div className="video">
-                <iframe width="560" height="315" src={this.state.url} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <Youtube
+                    videoId={this.state.url}
+                    opts={this.opts}
+                    onReady={this.onReady}/>
             </div>
           </div>  
         );
