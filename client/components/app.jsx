@@ -1,5 +1,6 @@
 import React from 'react';
 import Youtube from 'react-youtube';
+import Timers from './timers';
 
 export default class App extends React.Component{
     constructor(props){
@@ -36,7 +37,6 @@ class VideoSync extends React.Component{
             currentTime: "11:00:00 AM EST",
             targetTime: "12:00:00 AM EST"
         }
-        // this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -56,22 +56,7 @@ class VideoSync extends React.Component{
     render(){
         return (
           <div className="mainBody">
-
-            <div className="targetTime">
-                <h2>Set Time:</h2>
-                <h1>{this.state.targetTime}</h1>
-            </div>
-            <div className="timers">
-                <div className="currentTime">
-                    <h4>Current Time:</h4>
-                    <h4>{this.state.currentTime}</h4>
-                </div>
-                <div className="remainingTime">
-                    <h4>Remaining Time:</h4>
-                    <h4>01:00:00</h4>
-                </div>
-            </div>
-
+            <Timers />
             <div className="urlContainer">
                 <input id="urlInput" type="text" onChange={this.handleChange} placeholder="Enter url here"></input>
                 <input type="submit" value="Submit" onClick={this.handleSubmit}></input>
