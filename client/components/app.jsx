@@ -47,8 +47,11 @@ class VideoSync extends React.Component{
         if(ampPos != -1) {
             video_id = video_id.substring(0, ampPos);
           }
+        const timeControl = document.querySelector('input[type="time"]');
+        console.log(timeControl.value)
         this.setState({
-            url: video_id
+            url: video_id,
+            targetTime: timeControl.value
         });
     }
 
@@ -58,7 +61,7 @@ class VideoSync extends React.Component{
           <div className="mainBody">
             <Timers />
             <div className="urlContainer">
-                <input id="urlInput" type="text" onChange={this.handleChange} placeholder="Enter url here"></input>
+                <input id="urlInput" type="text" onChange={this.handleChange} value="https://www.youtube.com/watch?v=2g811Eo7K8U" placeholder="https://www.youtube.com/watch?v=2g811Eo7K8U"></input>
                 <input type="submit" value="Submit" onClick={this.handleSubmit}></input>
             </div>
             

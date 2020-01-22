@@ -4,7 +4,8 @@ export default class Timers extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            currentTime: new Date().toLocaleTimeString()
+            currentTime: new Date().toLocaleTimeString(),
+            targetTime: null
         }
     }
     componentDidMount(){
@@ -19,7 +20,7 @@ export default class Timers extends React.Component{
             <div className="timersContainer">
                 <div className="targetTime">
                     <h2>Set Time:</h2>
-                    <h1>fdsf</h1>
+                    <input id="set-time" type="time" name="set-time"/>
                 </div>
                 <div className="timers">
                     <div className="currentTime">
