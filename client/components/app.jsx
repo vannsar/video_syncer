@@ -57,8 +57,8 @@ class VideoSync extends React.Component{
 
     render(){
         return (
-          <div className="mainBody">
-            <Timers targetTime={this.state.targetTime} />
+          <div className="mainBody container">
+            <Timers className="row" targetTime={this.state.targetTime} />
             <div className="urlContainer">
                 <input id="urlInput" type="text" onChange={this.handleChange} placeholder="https://www.youtube.com/watch?v=2g811Eo7K8U"></input>
                 <input type="submit" value="Submit" onClick={this.handleSubmit}></input>

@@ -13,22 +13,21 @@ export default class Timers extends React.Component{
             this.setState({
                 currentTime: new Date().toLocaleTimeString()
             });
-            console.log(this.props);
         }, 1000);
     }
     render(){
         return (
-            <div className="timersContainer">
+            <div className="timersContainer container">
                 <div className="targetTime">
                     <h2>Set Time:</h2>
                     <input id="set-time" type="time" name="set-time"/>
                 </div>
-                <div className="timers">
-                    <div className="currentTime">
+                <div className="timers text-center">
+                    <div className="currentTime col-4 mr-1">
                         <h4>Current Time:</h4>
                         <h4>{this.state.currentTime}</h4>
                     </div>
-                    <div className="remainingTime">
+                    <div className="remainingTime col-4">
                         <h4>Remaining Time:</h4>
                         <h4>01:00:00</h4>
                     </div>
