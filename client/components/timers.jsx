@@ -5,14 +5,15 @@ export default class Timers extends React.Component{
         super(props);
         this.state = {
             currentTime: new Date().toLocaleTimeString(),
-            targetTime: null
+            targetTime: this.props.targetTime
         }
     }
     componentDidMount(){
         setInterval(() => {
             this.setState({
                 currentTime: new Date().toLocaleTimeString()
-            })
+            });
+            console.log(this.props);
         }, 1000);
     }
     render(){

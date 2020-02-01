@@ -12,7 +12,7 @@ export default class App extends React.Component{
               autoplay: 1
             }
           };
-       
+
         this.state = {
         }
     }
@@ -25,7 +25,7 @@ export default class App extends React.Component{
             </div>
          )
     }
-    
+
 }
 
 class VideoSync extends React.Component{
@@ -34,8 +34,7 @@ class VideoSync extends React.Component{
         this.state = {
             url: "2g811Eo7K8U",
             newUrl: "",
-            currentTime: "11:00:00 AM EST",
-            targetTime: "12:00:00 AM EST"
+            currentTime: "11:00:00 AM EST"
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -59,19 +58,19 @@ class VideoSync extends React.Component{
     render(){
         return (
           <div className="mainBody">
-            <Timers />
+            <Timers targetTime={this.state.targetTime} />
             <div className="urlContainer">
-                <input id="urlInput" type="text" onChange={this.handleChange} value="https://www.youtube.com/watch?v=2g811Eo7K8U" placeholder="https://www.youtube.com/watch?v=2g811Eo7K8U"></input>
+                <input id="urlInput" type="text" onChange={this.handleChange} placeholder="https://www.youtube.com/watch?v=2g811Eo7K8U"></input>
                 <input type="submit" value="Submit" onClick={this.handleSubmit}></input>
             </div>
-            
+
             <div className="video">
                 <Youtube
                     videoId={this.state.url}
                     opts={this.opts}
                     onReady={this.onReady}/>
             </div>
-          </div>  
+          </div>
         );
     }
 }
