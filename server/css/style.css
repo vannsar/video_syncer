@@ -13,12 +13,10 @@
 }
 
 .currentTime{
-    width: 40%;
     background-color: chartreuse;
 }
 
 .remainingTime{
-    width: 40%;
     background-color: cyan;
 }
 
