@@ -1,6 +1,5 @@
 import React from 'react';
-import Youtube from 'react-youtube';
-import Timers from './timers';
+import Video from './Video'
 
 export default class App extends React.Component{
     constructor(props){
@@ -14,63 +13,98 @@ export default class App extends React.Component{
           };
 
         this.state = {
+          //time when page is loaded
+          startTime: new Date().getTime(),
+          //progressing time in milliseconds
+          time: new Date().getTime(),
+          play: false,
+          //url received in the text input
+          url: '',
+          //the url received by the Video component as a prop
+          setUrl: '',
+          month: (new Date().getMonth()).toString(),
+          day: (new Date().getDate()).toString(),
+          year: (new Date().getFullYear()).toString(),
+          
+          //time set by user to start video
+          setTime: new Date( new Date().getTime() + new Date().getTimezoneOffset() * 3600 * 1000).getTime()
         }
-    }
-
-    render(){
-         return (
-            <div>
-                <h1 className="header">VIDEO SYNC THING</h1>
-                <VideoSync />
-            </div>
-         )
-    }
-
-}
-
-class VideoSync extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            url: "2g811Eo7K8U",
-            newUrl: "",
-            currentTime: "11:00:00 AM EST"
-        }
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleSubmit(){
-        const url = document.getElementById('urlInput').value;
-        let video_id = url.split('v=')[1];
-        let ampPos = video_id.indexOf('&');
-        if(ampPos != -1) {
-            video_id = video_id.substring(0, ampPos);
-          }
-        const timeControl = document.querySelector('input[type="time"]');
-        console.log(timeControl.value)
+      }
+    
+      componentDidMount(){
+        this.intervalID = setInterval(
+          ()=> this.tick(),
+          1000
+        )
+      }
+    
+      componentWillUnmount(){
+        clearInterval(this.intervalID)
+      }
+    
+      tick(){
         this.setState({
-            url: video_id,
-            targetTime: timeControl.value
-        });
-    }
-
-
-    render(){
-        return (
-          <div className="mainBody container">
-            <Timers className="row" targetTime={this.state.targetTime} />
-            <div className="urlContainer">
-                <input id="urlInput" type="text" onChange={this.handleChange} placeholder="https://www.youtube.com/watch?v=2g811Eo7K8U"></input>
-                <input type="submit" value="Submit" onClick={this.handleSubmit}></input>
-            </div>
-
-            <div className="video">
-                <Youtube
-                    videoId={this.state.url}
-                    opts={this.opts}
-                    onReady={this.onReady}/>
-            </div>
+          //Changes state of time every second
+          time : new Date().getTime()
+        }, ()=>{
+          console.log("Tick")
+          //newTime is null until user sets a time for video to go off
+          if(this.state.newTime){
+            //if the current time passes  the set time then the video will play
+            if(this.state.time>this.state.newTime){
+              this.setState({
+                play: true
+              })
+            }
+          }
+        }
+        )
+      }
+    
+      //Video component receives url as a prop from search bar
+      search=()=>{
+        this.setState({
+          setUrl: this.state.url
+        })
+      }
+      
+      handleChange = (e) => {
+        this.setState({
+          [e.target.id] : e.target.value
+        }, console.log(this.state))
+      }
+    
+      //receive time from HTML input (having trouble syncing time)
+      handleTime = (e) =>{
+        this.setState({
+          newTime: (new Date(this.state.month+'/'+this.state.day + '/' + this.state.year + '/' + this.state.setTime + 'UTC'))   
+        },console.log(this.state))
+      }
+    
+      
+    
+      render(){
+    
+        return(
+          <div className="App">        
+            
+            <input onChange={this.handleChange} type="text" id="url" />
+            <button onClick = {this.search}>Search</button>
+    
+    
+            <br />
+            {this.state.time}
+            <br />
+    
+            
+            <Video play={this.state.play} url={this.state.setUrl} />
+    
+    
+    
+            <br />
+            <input onChange={this.handleChange} type="time" id="setTime" />
+            <button onClick={this.handleTime}>Set</button>
           </div>
-        );
-    }
+        )
+      }
 }
