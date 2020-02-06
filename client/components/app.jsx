@@ -1,10 +1,17 @@
 import React from 'react';
 import Video from './Video'
 
-
 export default class App extends React.Component{
     constructor(props){
         super(props);
+        const opts = {
+            height: '315',
+            width: '560',
+            playerVars: { // https://developers.google.com/youtube/player_parameters
+              autoplay: 1
+            }
+          };
+
         this.state = {
           //time when page is loaded
           startTime: new Date().getTime(),
