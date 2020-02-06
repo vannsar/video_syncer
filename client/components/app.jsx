@@ -1,77 +1,103 @@
 import React from 'react';
+import Video from './Video'
+
 
 export default class App extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+          //time when page is loaded
+          startTime: new Date().getTime(),
+          //progressing time in milliseconds
+          time: new Date().getTime(),
+          play: false,
+          //url received in the text input
+          url: '',
+          //the url received by the Video component as a prop
+          setUrl: '',
+          month: (new Date().getMonth()).toString(),
+          day: (new Date().getDate()).toString(),
+          year: (new Date().getFullYear()).toString(),
+          
+          //time set by user to start video
+          setTime: new Date( new Date().getTime() + new Date().getTimezoneOffset() * 3600 * 1000).getTime()
         }
-    }
-
-    render(){
-         return (
-            <div>
-                <h1 className="header">VIDEO SYNC THING</h1>
-                <VideoSync />
-            </div>
-         )
-    }
+      }
     
-}
-
-class VideoSync extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-            newUrl: "",
-            currentTime: "11:00:00 AM EST",
-            targetTime: "12:00:00 AM EST"
-        }
-        // this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleSubmit(){
+      componentDidMount(){
+        this.intervalID = setInterval(
+          ()=> this.tick(),
+          1000
+        )
+      }
+    
+      componentWillUnmount(){
+        clearInterval(this.intervalID)
+      }
+    
+      tick(){
         this.setState({
-            url: document.getElementById('urlInput').value
-        });
-    }
-
-    // handleChange(url){
-    //     console.log(document.getElementById('userInput').value);
-    //     this.setState({
-    //         newUrl: url
-    //     })
-    // }
-
-    render(){
-        return (
-          <div className="mainBody">
-
-            <div className="targetTime">
-                <h2>Set Time:</h2>
-                <h1>{this.state.targetTime}</h1>
-            </div>
-            <div className="timers">
-                <div className="currentTime">
-                    <h4>Current Time:</h4>
-                    <h4>{this.state.currentTime}</h4>
-                </div>
-                <div className="remainingTime">
-                    <h4>Remaining Time:</h4>
-                    <h4>01:00:00</h4>
-                </div>
-            </div>
-
-            <div className="urlContainer">
-                <input id="urlInput" type="text" onChange={this.handleChange} placeholder={this.state.url}></input>
-                <input type="submit" value="Submit" onClick={this.handleSubmit}></input>
-            </div>
+          //Changes state of time every second
+          time : new Date().getTime()
+        }, ()=>{
+          console.log("Tick")
+          //newTime is null until user sets a time for video to go off
+          if(this.state.newTime){
+            //if the current time passes  the set time then the video will play
+            if(this.state.time>this.state.newTime){
+              this.setState({
+                play: true
+              })
+            }
+          }
+        }
+        )
+      }
+    
+      //Video component receives url as a prop from search bar
+      search=()=>{
+        this.setState({
+          setUrl: this.state.url
+        })
+      }
+      
+      handleChange = (e) => {
+        this.setState({
+          [e.target.id] : e.target.value
+        }, console.log(this.state))
+      }
+    
+      //receive time from HTML input (having trouble syncing time)
+      handleTime = (e) =>{
+        this.setState({
+          newTime: (new Date(this.state.month+'/'+this.state.day + '/' + this.state.year + '/' + this.state.setTime + 'UTC'))   
+        },console.log(this.state))
+      }
+    
+      
+    
+      render(){
+    
+        return(
+          <div className="App">        
             
-            <div className="video">
-                <iframe width="560" height="315" src={this.state.url} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-          </div>  
-        );
-    }
+            <input onChange={this.handleChange} type="text" id="url" />
+            <button onClick = {this.search}>Search</button>
+    
+    
+            <br />
+            {this.state.time}
+            <br />
+    
+            
+            <Video play={this.state.play} url={this.state.setUrl} />
+    
+    
+    
+            <br />
+            <input onChange={this.handleChange} type="time" id="setTime" />
+            <button onClick={this.handleTime}>Set</button>
+          </div>
+        )
+      }
 }
