@@ -27,7 +27,7 @@ export default class App extends React.Component{
           year: (new Date().getFullYear()).toString(),
           
           //time set by user to start video
-          setTime: new Date( new Date().getTime() + new Date().getTimezoneOffset() * 3600 * 1000).getTime()
+          setTime: null
         }
       }
     
@@ -52,6 +52,7 @@ export default class App extends React.Component{
           if(this.state.newTime){
             //if the current time passes  the set time then the video will play
             if(this.state.time>this.state.newTime){
+              console.log("Current Time: ", this.state.time, "Set Time: ", this.state.newTime);
               this.setState({
                 play: true
               })
@@ -77,9 +78,8 @@ export default class App extends React.Component{
       //receive time from HTML input (having trouble syncing time)
       handleTime = (e) =>{
         this.setState({
-          newTime: (new Date(this.state.month+'/'+this.state.day + '/' + this.state.year + '/' + this.state.setTime + 'UTC'))   
-        },console.log(this.state))
-      }
+          newTime: (new Date(this.state.year, this.state.month,this.state.day, this.state.setTime.slice(0,2), this.state.setTime.slice(3,6)).getTime())   
+      })}
     
       
     
