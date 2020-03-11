@@ -44,6 +44,7 @@ class Video extends Component{
           <Youtube
             ref={this.ref} url={this.props.url}
             playing={this.props.play}
+            preload={true}
             onDuration={this.handleDuration}
           />
           </div>
