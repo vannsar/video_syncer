@@ -25,29 +25,28 @@ export default class App extends React.Component{
           month: (new Date().getMonth()).toString(),
           day: (new Date().getDate()).toString(),
           year: (new Date().getFullYear()).toString(),
-          
+
           //time set by user to start video
           setTime: null
         }
       }
-    
+
       componentDidMount(){
         this.intervalID = setInterval(
           ()=> this.tick(),
           1000
         )
       }
-    
+
       componentWillUnmount(){
         clearInterval(this.intervalID)
       }
-    
+
       tick(){
         this.setState({
           //Changes state of time every second
           time : new Date().getTime()
         }, ()=>{
-          console.log("Tick")
           //newTime is null until user sets a time for video to go off
           if(this.state.newTime){
             //if the current time passes  the set time then the video will play
@@ -61,47 +60,42 @@ export default class App extends React.Component{
         }
         )
       }
-    
-      //Video component receives url as a prop from search bar
-      search=()=>{
+
+      //Video component receives url as a prop from input field
+      enterUrl=()=>{
         this.setState({
           setUrl: this.state.url
         })
       }
-      
+
       handleChange = (e) => {
         this.setState({
           [e.target.id] : e.target.value
         }, console.log(this.state))
       }
-    
+
       //receive time from HTML input (having trouble syncing time)
       handleTime = (e) =>{
         this.setState({
-          newTime: (new Date(this.state.year, this.state.month,this.state.day, this.state.setTime.slice(0,2), this.state.setTime.slice(3,6)).getTime())   
+          newTime: (new Date(this.state.year, this.state.month,this.state.day, this.state.setTime.slice(0,2), this.state.setTime.slice(3,6)).getTime())
       })}
-    
-      
-    
+
+
+
       render(){
-    
+
         return(
-          <div className="App">        
-            
-            <input onChange={this.handleChange} type="text" id="url" />
-            <button onClick = {this.search}>Search</button>
-    
-    
-            <br />
-            {this.state.time}
-            <br />
-    
-            
-            <Video play={this.state.play} url={this.state.setUrl} />
-    
-    
-    
-            <br />
+          <div className="App">
+            <h1>Youtube Syncer</h1>
+            <div className="url_input">
+              <h5>Enter a YouTube link</h5>
+              <input onChange={this.handleChange} type="text" id="url" />
+                <button onClick = {this.enterUrl}>Enter Url</button>
+            </div>
+            <div className="player">
+              <Video play={this.state.play} url={this.state.setUrl} />
+            </div>
+            <h5>Enter the start time.</h5>
             <input onChange={this.handleChange} type="time" id="setTime" />
             <button onClick={this.handleTime}>Set</button>
           </div>

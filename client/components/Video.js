@@ -28,7 +28,7 @@ class Video extends Component{
 
     render(){
 
-        
+
 
         const opts = {
             height: '390',
@@ -41,18 +41,17 @@ class Video extends Component{
 
         return(
          <div>
-          <button onClick={()=> this.setState({play: true})}>Play</button>
-          <button onClick={()=>{console.log(this.state.play)}}>Status</button>
-          <Youtube 
+          <Youtube
             ref={this.ref} url={this.props.url}
-            playing={this.props.play} 
+            playing={this.props.play}
+            preload={true}
             onDuration={this.handleDuration}
           />
-          </div> 
-        
+          </div>
+
         )
     }
-    
+
 }
 
 export default Video

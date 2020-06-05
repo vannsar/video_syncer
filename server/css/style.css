@@ -1,31 +1,17 @@
-.header{
-    text-align: center;
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: orange;
+  margin: 15px;
 }
 
-.targetTime{
-    text-align: center;
+.App{
+  background-color: whitesmoke;
+  height: 90vh;
 }
 
-.timers{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.currentTime{
-    background-color: chartreuse;
-}
-
-.remainingTime{
-    background-color: cyan;
-}
-
-.urlContainer{
-    display: flex;
-    justify-content: center;
-}
-
-.video{
-    display: flex;
-    justify-content: center;
+.player{
+  background-color: black;
 }
