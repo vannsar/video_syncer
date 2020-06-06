@@ -98,6 +98,10 @@ export default class App extends React.Component{
             <h5>Enter the start time.</h5>
             <input onChange={this.handleChange} type="time" id="setTime" />
             <button onClick={this.handleTime}>Set</button>
+            <footer>
+              <h6>Created by Vannarith Sar</h6>
+              <a href="mailto:vannsar@gmail.com">Looking to hire?</a>
+            </footer>
           </div>
         )
       }
