@@ -1,0 +1,21 @@
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: orange;
+  margin: 15px;
+}
+
+.App{
+  background-color: whitesmoke;
+  height: 90vh;
+}
+
+.player{
+  background-color: black;
+}
+
+footer{
+  padding: 20px;
+}
