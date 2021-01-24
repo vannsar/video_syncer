@@ -1,5 +1,7 @@
 # Video Syncer
 
+# Grabs YouTube links and time input, and autoplays at a specified time.
+
 ### How to install.
 
 * Use ```npm install``` to download modules.
